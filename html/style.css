@@ -1,0 +1,299 @@
+/*
+    ╔═══════════════════════════════════════════════════════════════╗
+    ║                   6HA VEHICLE CONTROL SYSTEM                  ║
+    ║                      CSS Stylesheet                           ║
+    ╠═══════════════════════════════════════════════════════════════╣
+    ║  Developer: 6ha                                               ║
+    ║  Discord: https://discord.gg/Zk4TTQrRdh                       ║
+    ║  Server: 𝐑𝟔 | 𝐒𝐓𝐎𝐑𝐄                                            ║
+    ║  All Rights Reserved © 2026                                   ║
+    ╚═══════════════════════════════════════════════════════════════╝
+*/
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      RESET & BASE STYLES                       */
+/* ══════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --purple-main: #7743d1;
+    --purple-active: #9966ff;
+    --light-border: #ffffff66;
+    --yellow-light: #fbbf24;
+    --orange-signal: #f59e0b;
+    --red-hazard: #ef4444;
+}
+
+body {
+    font-family: 'IBM Plex Sans Arabic', 'Orbitron', sans-serif;
+    overflow: hidden;
+    user-select: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      MAIN CONTAINER                            */
+/* ══════════════════════════════════════════════════════════════ */
+
+#vehcontrol-container {
+    position: fixed;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      VEHICLE PLATE                             */
+/* ══════════════════════════════════════════════════════════════ */
+
+.vehicle-plate {
+    background: var(--purple-main);
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8vh;
+    font-weight: 700;
+    padding: 8px 25px;
+    border-radius: 8px;
+    text-align: center;
+    letter-spacing: 3px;
+    border: 2px solid var(--light-border);
+    transition: all 0.3s ease;
+}
+
+.vehicle-plate.locked::after {
+    content: '🔒';
+    margin-left: 10px;
+    font-size: 1.4vh;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      CONTROL PANEL                             */
+/* ══════════════════════════════════════════════════════════════ */
+
+.control-panel-new {
+    background: linear-gradient(to bottom, #110c1aeb, #1b102d);
+    border: 1px solid var(--light-border);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 420px;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      CONTROL ROWS                              */
+/* ══════════════════════════════════════════════════════════════ */
+
+.control-row-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.control-row-new.top-row {
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.control-row-new.bottom-row {
+    margin-top: 5px;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      CONTROL BUTTONS                           */
+/* ══════════════════════════════════════════════════════════════ */
+
+.control-btn-new {
+    width: 55px;
+    height: 55px;
+    background: var(--purple-main);
+    border: 2px solid var(--light-border);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 12px;
+    transition: all 0.2s ease;
+}
+
+.control-btn-new.large-btn {
+    width: 70px;
+    height: 70px;
+    padding: 16px;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      BUTTON IMAGES                             */
+/* ══════════════════════════════════════════════════════════════ */
+
+.control-btn-new img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      BUTTON STATES                             */
+/* ══════════════════════════════════════════════════════════════ */
+
+/* Hover */
+.control-btn-new:hover {
+    opacity: 0.8;
+}
+
+/* Active - بنفسجي */
+.control-btn-new.active {
+    background: var(--purple-active);
+    border-color: var(--purple-active);
+}
+
+/* Engine Active */
+.control-btn-new[data-action="engine"].active {
+    background: var(--purple-active);
+    border-color: var(--purple-active);
+}
+
+/* Interior Light Active - أصفر/ذهبي */
+.control-btn-new[data-action="interiorLight"].active {
+    background: var(--yellow-light);
+    border-color: var(--yellow-light);
+}
+
+/* Disabled */
+.control-btn-new.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      SEAT BUTTONS                              */
+/* ══════════════════════════════════════════════════════════════ */
+
+/* Current Seat - بنفسجي */
+.seat-btn.current-seat {
+    background: var(--purple-active);
+    border-color: var(--purple-active);
+}
+
+/* Occupied Seat - أحمر */
+.seat-btn.occupied-seat {
+    background: var(--red-hazard);
+    border-color: var(--red-hazard);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      SIGNAL BUTTONS                            */
+/* ══════════════════════════════════════════════════════════════ */
+
+.signal-btn {
+    font-size: 1.5vh;
+}
+
+.signal-btn i {
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+/* Left Signal */
+.signal-btn[data-type="left"].active {
+    background: var(--orange-signal);
+    border-color: var(--orange-signal);
+    animation: blink-left 1s infinite;
+}
+
+/* Right Signal */
+.signal-btn[data-type="right"].active {
+    background: var(--orange-signal);
+    border-color: var(--orange-signal);
+    animation: blink-right 1s infinite;
+}
+
+/* Hazard Signal */
+.signal-btn[data-type="hazard"].active {
+    background: var(--red-hazard);
+    border-color: var(--red-hazard);
+    animation: blink-hazard 0.5s infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      ANIMATIONS                                */
+/* ══════════════════════════════════════════════════════════════ */
+
+@keyframes blink-left {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.3; 
+    }
+}
+
+@keyframes blink-right {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.3; 
+    }
+}
+
+@keyframes blink-hazard {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.3; 
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*                      RESPONSIVE DESIGN                         */
+/* ══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    #vehcontrol-container {
+        right: 1%;
+    }
+    
+    .control-panel-new {
+        min-width: 350px;
+        padding: 15px;
+    }
+    
+    .control-btn-new {
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+    }
+    
+    .control-btn-new.large-btn {
+        width: 60px;
+        height: 60px;
+        padding: 14px;
+    }
+    
+    .control-row-new {
+        gap: 10px;
+    }
+}
